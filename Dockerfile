@@ -1,7 +1,12 @@
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
+
 COPY . ./
+
 RUN chmod +x gradlew
-RUN ./gradlew :Usuarios:bootJar -x test
-CMD ["sh", "-c", "java -jar $(ls Usuarios/build/libs/*.jar | grep -v plain | head -n 1)"]
+
+RUN ./gradlew bootJar -x test
+
+CMD ["sh", "-c", "java -jar $(ls build/libs/* | grep -v plain | head -n 1)"]
+
